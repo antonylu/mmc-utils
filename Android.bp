@@ -1,0 +1,14 @@
+cc_binary {
+    name: "mmc_utils",
+    srcs: [
+        "mmc.c",
+        "mmc_cmds.c",
+
+        "3rdparty/hmac_sha/sha2.c",
+        "3rdparty/hmac_sha/hmac_sha2.c",
+    ],
+    cflags: ["-Werror"],
+    shared_libs: [
+        "libcutils",
+    ],
+}
