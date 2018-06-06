@@ -1018,6 +1018,9 @@ int do_read_extcsd(int nargs, char **argv)
 	ext_csd_rev = ext_csd[EXT_CSD_REV];
 
 	switch (ext_csd_rev) {
+	case 8:
+		str = "5.1";
+		break;
 	case 7:
 		str = "5.0";
 		break;
@@ -1430,7 +1433,24 @@ int do_read_extcsd(int nargs, char **argv)
 		/* flush_cache ext_csd[32] not readable */
 		/*Reserved [31:0] */
 	}
-
+	if (ext_csd_rev >= 7) {
+		printf("eMMC Firmware Version: %s\n",
+			(char*)&ext_csd[EXT_CSD_FIRMWARE_VERSION]);
+		printf("eMMC Life Time Estimation A [EXT_CSD_DEVICE_LIFE_TIME_EST_TYP_A]: 0x%02x\n",
+			ext_csd[EXT_CSD_DEVICE_LIFE_TIME_EST_TYP_A]);
+		printf("eMMC Life Time Estimation B [EXT_CSD_DEVICE_LIFE_TIME_EST_TYP_B]: 0x%02x\n",
+			ext_csd[EXT_CSD_DEVICE_LIFE_TIME_EST_TYP_B]);
+		printf("eMMC Pre EOL information [EXT_CSD_PRE_EOL_INFO]: 0x%02x\n",
+			ext_csd[EXT_CSD_PRE_EOL_INFO]);
+	}
+	if (ext_csd_rev >= 8) {
+		printf("Command Queue Support [CMDQ_SUPPORT]: 0x%02x\n",
+		       ext_csd[EXT_CSD_CMDQ_SUPPORT]);
+		printf("Command Queue Depth [CMDQ_DEPTH]: %u\n",
+		       (ext_csd[EXT_CSD_CMDQ_DEPTH] & 0x1f) + 1);
+		printf("Command Enabled [CMDQ_MODE_EN]: 0x%02x\n",
+		       ext_csd[EXT_CSD_CMDQ_MODE_EN]);
+	}
 out_free:
 	return ret;
 }
