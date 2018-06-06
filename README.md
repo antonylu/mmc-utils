@@ -23,5 +23,5 @@ Print extcsd data from device:
 Example to get the Life time or EOL status,
       
       mmc extcsd read /dev/mmcblk1 | grep -i life
-      mmc extcsd read /dev/mmcblk1 | grep -i life
+      mmc extcsd read /dev/mmcblk1 | grep -i eol
       
