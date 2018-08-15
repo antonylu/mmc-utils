@@ -7,6 +7,9 @@ objects = \
 	3rdparty/hmac_sha/hmac_sha2.o \
 	3rdparty/hmac_sha/sha2.o
 
+objects_emmc = \
+	emmc.o
+
 CHECKFLAGS = -Wall -Werror -Wuninitialized -Wundef
 
 DEPFLAGS = -Wp,-MMD,$(@D)/.$(@F).d,-MT,$@
@@ -19,7 +22,7 @@ bindir = $(prefix)/bin
 LIBS=
 RESTORE_LIBS=
 
-progs = mmc
+progs = mmc emmc
 
 # make C=1 to enable sparse
 ifdef C
@@ -36,6 +39,9 @@ endif
 
 mmc: $(objects)
 	$(CC) $(CFLAGS) -o $@ $(objects) $(LDFLAGS) $(LIBS)
+
+emmc: $(objects_emmc)
+	$(CC) $(CFLAGS) -o $@ $(objects_emmc) $(LDFLAGS) $(LIBS)
 
 manpages:
 	$(MAKE) -C man
