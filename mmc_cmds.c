@@ -19,7 +19,7 @@
 #include <string.h>
 #include <sys/ioctl.h>
 #include <sys/types.h>
-#include <sys/endian.h>
+//#include <sys/endian.h>
 #include <dirent.h>
 #include <sys/stat.h>
 #include <unistd.h>
